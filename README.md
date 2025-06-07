@@ -1,7 +1,12 @@
 # VulnForge
+<p align="center">
+    <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/the29a/vulnforge">
+    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/the29a/VulnForge">
+    <a href="https://github.com/the29a/VulnForge/blob/main/LICENSE" target="_blank"><img alt="GitHub License" src="https://img.shields.io/github/license/the29a/VulnForge">
+</p>
 
 Deploy, Detect, Exploit, Repeat.
-
+ 
 VulnForge is an open-source collection of pre-build vulnerable Docker environments. VulnForge are made for testing vulnerable images detection and possible vulnerability exploitation.
 
 
