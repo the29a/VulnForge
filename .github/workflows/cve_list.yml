@@ -21,8 +21,8 @@ jobs:
       - name: Generate CVE list (text and JSON)
         run: |
           CVES=$(find . -type d -iname "CVE*" -printf '%f\n' | sort -t '-' -k2,2n -k3,3n)
-          echo "$CVES" > cve_list.txt
-          printf '[\n%s\n]\n' "$(echo "$CVES" | sed 's/.*/  "&"/' | paste -sd "," -)" > cve_list.json
+          echo "$CVES" > .cves/cve_list.txt
+          printf '[\n%s\n]\n' "$(echo "$CVES" | sed 's/.*/  "&"/' | paste -sd "," -)" > .cves/cve_list.json
 
       - name: Commit and push changes if needed
         run: |
