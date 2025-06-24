@@ -1,4 +1,4 @@
-name: Update CVE List
+name: Update CVE List (Text & JSON)
 
 on:
   push:
@@ -18,15 +18,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Generate CVE list
+      - name: Generate CVE list (text and JSON)
         run: |
-          find . -type d -iname "CVE*" -printf '%f\n' | sort -t '-' -k2,2n -k3,3n > cves.md
+          CVES=$(find . -type d -iname "CVE*" -printf '%f\n' | sort -t '-' -k2,2n -k3,3n)
+          echo "$CVES" > cve_list.txt
+          printf '[\n%s\n]\n' "$(echo "$CVES" | sed 's/.*/  "&"/' | paste -sd "," -)" > cve_list.json
 
-      - name: Commit and push changes
+      - name: Commit and push changes if needed
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            git add cves.md
-            git commit -m "Update CVE list on push to main"
+            git add cve_list.txt cve_list.json
+            git commit -m "Upd: Update CVE lists (text & JSON)"
             git push
           else
             echo "No changes to commit"
