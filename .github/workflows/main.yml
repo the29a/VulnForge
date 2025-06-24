@@ -1,0 +1,33 @@
+name: Update CVE List
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-cve-list:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Generate CVE list
+        run: |
+          find . -type d -iname "CVE*" -printf '%f\n' | sort -t '-' -k2,2n -k3,3n > cves.md
+
+      - name: Commit and push changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add cves.md
+            git commit -m "Update CVE list on push to main"
+            git push
+          else
+            echo "No changes to commit"
+          fi
