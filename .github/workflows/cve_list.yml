@@ -27,7 +27,8 @@ jobs:
       - name: Commit and push changes if needed
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            git add cve_list.txt cve_list.json
+            git add .cves/cve_list.json \
+              .cves/cve_list.txt
             git commit -m "Upd: Update CVE lists (text & JSON)"
             git push
           else
